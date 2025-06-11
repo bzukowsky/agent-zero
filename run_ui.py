@@ -212,8 +212,8 @@ def run():
     PrintStyle().debug(f"Starting server at {host}:{port}...")
 
     server = make_server(
-        host=host,
-        port=port,
+        host=os.environ.get("HOST", "0.0.0.0"),  # Default to 0.0.0.0
+        port=runtime.get_web_ui_port(),
         app=app,
         request_handler=NoRequestLoggingWSGIRequestHandler,
         threaded=True,
