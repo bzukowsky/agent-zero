@@ -1,3 +1,4 @@
+import os
 import argparse
 import inspect
 from typing import TypeVar, Callable, Awaitable, Union, overload, cast
@@ -127,17 +128,7 @@ def call_development_function_sync(func: Union[Callable[..., T], Callable[..., A
 
 
 def get_web_ui_port():
-    web_ui_port = (
-        get_arg("port")
-        or int(dotenv.get_dotenv_value("WEB_UI_PORT", 0))
-        or 5000
-    )
-    return web_ui_port
+    return int(os.environ.get("PORT", 0)) or int(dotenv.get_dotenv_value("WEB_UI_PORT", 0)) or 5000
 
 def get_tunnel_api_port():
-    tunnel_api_port = (
-        get_arg("tunnel_api_port")
-        or int(dotenv.get_dotenv_value("TUNNEL_API_PORT", 0))
-        or 55520
-    )
-    return tunnel_api_port
+    return int(os.environ.get("TUNNEL_API_PORT", 0)) or int(dotenv.get_dotenv_value("TUNNEL_API_PORT", 0)) or 55520
